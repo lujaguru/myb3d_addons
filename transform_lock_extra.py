@@ -168,7 +168,7 @@ class scaleX_lock(bpy.types.Operator):
     
 ## UI ##
 
-class Visibility(bpy.types.Panel):
+class TransformLockExtra(bpy.types.Panel):
     bl_label = "Transform Locks Extra"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
