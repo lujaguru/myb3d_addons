@@ -2,7 +2,7 @@ bl_info = {
     "name": "Transform Locks Extra",
     "description": "Adds toggle button in property region for enabling lock transform to all selected object",
     "author": "Aditia A. Pratama",
-    "version": (0, 2),
+    "version": (0, 1),
     "blender": (2, 66,),
     "location": "3D View > Property Region (N-key)",
     "warning": "",
