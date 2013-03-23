@@ -4,7 +4,7 @@ bl_info = {
     "author": "Aditia A. Pratama",
     "version": (0, 3),
     "blender": (2, 66,1),
-    "location": "3D View > Property Region (N-key)",
+    "location": "3D View > Property Panel (T-key)",
     "warning": "",
     "wiki_url": "",
     "tracker_url": "https://github.com/aditiapratama/myb3d_addons",
@@ -38,6 +38,7 @@ class Visibility(bpy.types.Panel):
         layout=self.layout
                                                    
         col=layout.column()
+        col.label(text="Display Subsurf Modifier ")
         col.operator("subsurf.toggle",  text="On/Off", icon="MOD_SUBSURF")
         
         col.separator()            
