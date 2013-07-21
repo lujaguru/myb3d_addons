@@ -2,8 +2,8 @@ bl_info = {
     "name": "Render Tools",
     "description": "Useful and time-saving tools for rendering workflow",
     "author": "Aditia A. Pratama",
-    "version": (0, 3),
-    "blender": (2, 66,1),
+    "version": (0, 4),
+    "blender": (2, 68),
     "location": "3D View > Property Panel (T-key)",
     "warning": "",
     "wiki_url": "",
@@ -39,13 +39,15 @@ class Visibility(bpy.types.Panel):
                                                    
         col=layout.column()
         col.label(text="Display Subsurf Modifier ")
-        col.operator("subsurf.toggle",  text="On/Off", icon="MOD_SUBSURF")
+        col.operator("subsurf.toggle", text="On/Off", icon="MOD_SUBSURF")
         
-        col.separator()            
+        col.separator()
         
         view = context.scene.render
+        scene = context.scene
           
         col.prop(view, "use_simplify", text="Simplify")
+        col.prop(scene, "use_unsimplify_render", text="Unsimplify Render")
         sub = col.column()
         sub.active = view.use_simplify
         sub.prop(view, "simplify_subdivision", text="Subdivision")
