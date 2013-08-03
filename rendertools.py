@@ -29,7 +29,6 @@ class SubsurfToggle(bpy.types.Operator):
                 print ("No subsurf on "+e.name+" or it is not named Subsurf")
         return {'FINISHED'}
 
-# FEATURE: Show Only Render with Alt+Shift+Z
 class SimplifyMenu(bpy.types.Operator):
     bl_idname = "scene.simplify"
     bl_label = "Simplify!"
