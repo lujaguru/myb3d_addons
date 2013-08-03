@@ -2,7 +2,7 @@ bl_info = {
     "name": "Render Tools",
     "description": "Useful and time-saving tools for rendering workflow",
     "author": "Aditia A. Pratama",
-    "version": (0, 4),
+    "version": (0, 5),
     "blender": (2, 68),
     "location": "3D View > Property Panel (T-key)",
     "warning": "",
@@ -28,6 +28,22 @@ class SubsurfToggle(bpy.types.Operator):
             except KeyError:
                 print ("No subsurf on "+e.name+" or it is not named Subsurf")
         return {'FINISHED'}
+
+# FEATURE: Show Only Render with Alt+Shift+Z
+class SimplifyMenu(bpy.types.Operator):
+    bl_idname = "scene.simplify"
+    bl_label = "Simplify!"
+
+    def execute(self, context):
+        render = bpy.context.scene.render
+        render.simplify_subdivision = 0
+        
+        if render.use_simplify:
+            render.use_simplify = False
+        else:
+            render.use_simplify = True
+        return {'FINISHED'}
+
             
 class Visibility(bpy.types.Panel):
     bl_label = "Render Tools"
@@ -58,11 +74,41 @@ class Visibility(bpy.types.Panel):
         
         layout.prop(ob, "dupli_group", text="Group")
 
+# FEATURE: Simplify in k menu
+class MenuSimplify(bpy.types.Menu):
+    bl_idname = "menu.use_simplify"
+    bl_label = "Simplify Menu"
+
+    def draw(self, context):
+        layout = self.layout
+
+        col=layout.column()
+
+        view = context.scene.render
+
+        col.operator("scene.simplify", text="Simplify!", icon="META_CUBE")
+        col.operator("subsurf.toggle", text="Subsurf ON/OFF", icon="MOD_SUBSURF")
+
+addon_keymaps = []
+
 def register():
    bpy.utils.register_module(__name__)
+
+   wm = bpy.context.window_manager
+    
+   km = wm.keyconfigs.addon.keymaps.new(name='Object Mode', space_type='EMPTY')
+   kmi = km.keymap_items.new('wm.call_menu', 'K', 'PRESS')
+   kmi.properties.name = 'menu.use_simplify' 
+
+   addon_keymaps.append(km)
    
 def unregister():
     bpy.utils.unregister_module(__name__)
+
+    wm = bpy.context.window_manager
+    for km in addon_keymaps:
+        wm.keyconfigs.addon.keymaps.remove(km)
+    del addon_keymaps[:]
  
 if __name__ == "__main__":
     register()
